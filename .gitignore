@@ -5,6 +5,15 @@
 # Recommended: add any editor/OS/tool-specific ignore rules from the Global/ templates as needed.
 # See: https://github.com/github/gitignore/tree/main/Global
 #
+
+# abstract's macos bs
+._*
+*/.DS_Store
+
+# occassionally abstract leaves these lying around
+*.exe
+run-*
+
 .utmp/
 /[Ll]ibrary/
 /[Tt]emp/
