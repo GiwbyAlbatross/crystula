@@ -1,0 +1,115 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0hsdkuansi6m"]
+
+[ext_resource type="PackedScene" uid="uid://djp4nljg0rqy4" path="res://scenes/player.tscn" id="1_bl13t"]
+[ext_resource type="Texture2D" uid="uid://dgeg7xtek6jy5" path="res://icon.svg" id="2_iyx0m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_74lek"]
+size = Vector2(120, 120)
+
+[node name="test" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_bl13t")]
+position = Vector2(105, 267)
+scale = Vector2(0.2, 0.2)
+
+[node name="godotfaces" type="CanvasGroup" parent="."]
+position = Vector2(-34, 0)
+
+[node name="godotface_002" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(181, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_002"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_002"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_003" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(303, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_003"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_003"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_004" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(426, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_004"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_004"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_005" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(549, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_005"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_005"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_006" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(671, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_006"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_006"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_007" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(793, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_007"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_007"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_008" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(915, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_008"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_008"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_009" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(1036, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_009"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_009"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_010" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(1157, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_010"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_010"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_011" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(1280, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_011"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_011"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_001" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(59, 542)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_001"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_001"]
+shape = SubResource("RectangleShape2D_74lek")
