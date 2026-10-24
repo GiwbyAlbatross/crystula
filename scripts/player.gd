@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export var GRAVITY := 6000.0
 @export var maxhp: float = 5.0
 @export var preserved_animations := PackedStringArray([])
+@export var coyote_time := 0.1
 
 # onreadies
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
@@ -19,7 +20,8 @@ var flags: Dictionary[StringName, float] = {
 } # to avoid having a million goddamn booleans
 var cooldowns: Dictionary[StringName, float] = { # see _tick_cooldowns
 	&'no_input':0.0, # bloody *&^%ing no_input time that pmo so much but is kinda important (DON'T OVERDO IT)
-	&'jump':0.0
+	&'jump':0.0,
+	&'coyote':0.0
 } # to avoid having a million goddamn floats for evey cooldown
 var peakheight := 10.0**100.0
 
@@ -57,7 +59,10 @@ func _move(delta: float) -> void:
 		velocity.y += GRAVITY * delta
 		if velocity.y < 100.0:
 			setanim(&'fall')
-
+	
+	if is_on_floor():
+		cooldowns[&'coyote'] = coyote_time + delta
+	
 	if cooldowns[&'no_input'] > 0.0:
 		# we are in no-input time
 		return
@@ -81,9 +86,10 @@ func _move(delta: float) -> void:
 	if Input.is_action_just_released("ui_accept") and cooldowns[&'jump'] >= 0.0:
 		velocity.y *= 0.1
 	
-	if is_on_floor():
+	if cooldowns[&'coyote'] >= 0.0:
 		if Input.is_action_just_pressed("ui_accept"):
 			cooldowns[&'jump'] = JUMP_LENGTH
+			cooldowns[&'coyote'] = 0.0
 			velocity.y = JUMP_VELOCITY
 			anim.play(&"jump_raw")
 		elif anim.animation == &'jump_raw':
@@ -105,6 +111,7 @@ func _physics_process(delta: float) -> void: # runs exactly 60 times a second, r
 	if is_on_floor():
 		peakheight = global_position.y
 	
+	_tick_cooldowns(delta)
 	move_and_slide()
 
 func _process(delta: float) -> void: # runs every frame, affected by FPS
