@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var JUMP_LENGTH := 1.0 # seconds
 @export var GRAVITY := 6000.0
 @export var maxhp: float = 5.0
-@export var preserved_animations := PackedStringArray([])
+@export var preserved_animations := PackedStringArray(['attack_0', 'uppercut', 'pogo'])
 @export var coyote_time := 0.1
 
 # onreadies
@@ -15,13 +15,14 @@ extends CharacterBody2D
 @onready var flipper: Node2D = $flipper # just flips other nodes using scale.x
 
 var hp: float = 5.0
-var flags: Dictionary[StringName, float] = {
+var flags: Dictionary[StringName, bool] = {
 	#
 } # to avoid having a million goddamn booleans
 var cooldowns: Dictionary[StringName, float] = { # see _tick_cooldowns
 	&'no_input':0.0, # bloody *&^%ing no_input time that pmo so much but is kinda important (DON'T OVERDO IT)
 	&'jump':0.0,
-	&'coyote':0.0
+	&'coyote':0.0,
+	&'dash':0.0, # dashing if greater than 0.0, can dash if greater than -0.65 TODO: implement dashing (waiting on sprites)
 } # to avoid having a million goddamn floats for evey cooldown
 var peakheight := 10.0**100.0
 
@@ -37,13 +38,13 @@ func _pick_next_anim():
 	var last: StringName = anim.animation
 	if !direction:
 		if is_on_floor():
-			setanim(&'idle')
+			anim.play(&'idle')
 		else:
-			setanim(&'fall')
+			anim.play(&'fall')
 	else:
 		# TODO: check for running
-		setanim(&'walk')
-	print("setting next animation, last: '", last, "', new: '", anim.animation, "'")
+		anim.play(&'walk')
+	#print("setting next animation, last: '", last, "', new: '", anim.animation, "'")
 
 func setanim(a: StringName) -> void:
 	# preserves certain important animations
@@ -97,14 +98,25 @@ func _move(delta: float) -> void:
 		elif peakheight < global_position.y-150.51:
 			setanim(&'fall-land')
 
+func _combat(delta: float) -> void:
+	# TODO: actual combat logic
+	if Input.is_action_just_pressed('attack'):
+		if Input.is_action_pressed('ui_up'):
+			# uppercut attack
+			anim.play(&'uppercut')
+		elif Input.is_action_pressed('ui_down') and !is_on_floor():
+			anim.play(&'pogo')
+		else:
+			anim.play(&"attack_0")
+
 func _tick_cooldowns(delta: float) -> void:
-	# very simple timer logic that doesn't use the timer node, to set a cooldown, set cooldowns[&'your_cooldown_name'] to however long that cooldown is and when it's over it will be <= 0.0
+	# very simple timer logic that doesn't use the timer node, to set a timer, set cooldowns[&'your_cooldown_name'] to however long that cooldown is and when it's over it will be <= 0.0
 	for key in cooldowns:
 		cooldowns[key] -= delta
 
 func _physics_process(delta: float) -> void: # runs exactly 60 times a second, regardless of fps
 	_move(delta)
-	
+	_combat(delta)
 	
 	flipper.scale.x = -facing
 	

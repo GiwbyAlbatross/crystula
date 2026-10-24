@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://djp4nljg0rqy4"]
+[gd_scene load_steps=70 format=3 uid="uid://djp4nljg0rqy4"]
 
 [ext_resource type="Script" uid="uid://cuelabwet51xk" path="res://scripts/player.gd" id="1_dt7fs"]
 [ext_resource type="Texture2D" uid="uid://cpmh57a8l5tl1" path="res://assets/animation/player/attack_0/IMG_3875.webp" id="2_wqfne"]
@@ -10,24 +10,34 @@
 [ext_resource type="Texture2D" uid="uid://bd2st0ng48aif" path="res://assets/animation/player/hitbox-location.png" id="8_2dvfe"]
 [ext_resource type="Texture2D" uid="uid://dum6x1mp7fpsh" path="res://assets/animation/player/fall/IMG_3890.png" id="8_j2b1d"]
 [ext_resource type="Texture2D" uid="uid://b3t2scxd5wo6r" path="res://assets/animation/player/idle/IMG_3852.webp" id="8_jc3p3"]
+[ext_resource type="Texture2D" uid="uid://bm5xcoawike3c" path="res://assets/animation/player/dash-attack/IMG_3852.webp" id="8_ua5cf"]
+[ext_resource type="Texture2D" uid="uid://c4fjrowmxywis" path="res://assets/animation/player/dash-attack/IMG_4070.webp" id="9_51ujp"]
 [ext_resource type="Texture2D" uid="uid://cl0uyjon6mlik" path="res://assets/animation/player/fall/IMG_3895.png" id="9_cs1tg"]
 [ext_resource type="Texture2D" uid="uid://csi0mds6t1og3" path="res://assets/animation/player/idle/IMG_3853.webp" id="9_hax0n"]
 [ext_resource type="Texture2D" uid="uid://dq26evhi60he2" path="res://assets/animation/player/fall/IMG_3896.png" id="10_2dvfe"]
 [ext_resource type="Texture2D" uid="uid://cfh7oybv7wkpr" path="res://assets/animation/player/idle/IMG_3907.webp" id="10_t4otl"]
+[ext_resource type="Texture2D" uid="uid://38xn7k1vmsdo" path="res://assets/animation/player/dash-attack/IMG_4078.webp" id="10_tk41t"]
+[ext_resource type="Texture2D" uid="uid://bhv6g3nw2yobm" path="res://assets/animation/player/dash-attack/IMG_4097.webp" id="11_fuw3a"]
 [ext_resource type="Texture2D" uid="uid://br4vu8bym7fao" path="res://assets/animation/player/fall-land/IMG_3897.png" id="11_giy8y"]
 [ext_resource type="Texture2D" uid="uid://bf5vp0rgmruk7" path="res://assets/animation/player/idle/IMG_3908.webp" id="11_j2b1d"]
+[ext_resource type="Texture2D" uid="uid://ymvov5fbr0tp" path="res://assets/animation/player/dash-attack/IMG_4098.webp" id="12_8txt3"]
 [ext_resource type="Texture2D" uid="uid://cxqqny1t2wfdo" path="res://assets/animation/player/jump/IMG_3853.webp" id="12_cs1tg"]
 [ext_resource type="Texture2D" uid="uid://c73nymgpberbh" path="res://assets/animation/player/fall-land/IMG_3898.png" id="12_fdfoy"]
 [ext_resource type="Texture2D" uid="uid://bb0kasf126pvw" path="res://assets/animation/player/jump/IMG_3854.webp" id="13_2dvfe"]
+[ext_resource type="Texture2D" uid="uid://bnb6fe020q861" path="res://assets/animation/player/dash-attack/IMG_4099.webp" id="13_2w11d"]
 [ext_resource type="Texture2D" uid="uid://ywmohakude2e" path="res://assets/animation/player/fall-land/IMG_3899.png" id="13_hhpqf"]
+[ext_resource type="Texture2D" uid="uid://cj4kis765vhap" path="res://assets/animation/player/dash-attack/IMG_4100.webp" id="14_770dr"]
 [ext_resource type="Texture2D" uid="uid://4q0p1y3yc308" path="res://assets/animation/player/fall-land/IMG_3900.png" id="14_g5jhy"]
 [ext_resource type="Texture2D" uid="uid://bdpofa1k3g033" path="res://assets/animation/player/jump/IMG_3855.webp" id="14_giy8y"]
+[ext_resource type="Texture2D" uid="uid://ditsq3kx4kjov" path="res://assets/animation/player/dash-attack/IMG_4101.webp" id="15_8f1cb"]
 [ext_resource type="Texture2D" uid="uid://bh0dr1pa7nv73" path="res://assets/animation/player/jump/IMG_3856.webp" id="15_fdfoy"]
 [ext_resource type="Texture2D" uid="uid://dwnxxx63a0gp2" path="res://assets/animation/player/fall-land/IMG_3901.png" id="15_holxr"]
 [ext_resource type="Texture2D" uid="uid://cxdqkwqxv4au7" path="res://assets/animation/player/jump/IMG_3857.webp" id="16_hhpqf"]
 [ext_resource type="Texture2D" uid="uid://nc088vo75h8d" path="res://assets/animation/player/fall-land/IMG_3902.png" id="16_mx1m4"]
+[ext_resource type="Texture2D" uid="uid://vtipagjunva6" path="res://assets/animation/player/dash-attack/IMG_4102.webp" id="16_vdulj"]
 [ext_resource type="Texture2D" uid="uid://c2aapcxiqa6f8" path="res://assets/animation/player/fall-land/IMG_3903.png" id="17_4gjji"]
 [ext_resource type="Texture2D" uid="uid://crgxkjsc7yrb8" path="res://assets/animation/player/jump/IMG_3858.webp" id="17_g5jhy"]
+[ext_resource type="Texture2D" uid="uid://dktbompmkf242" path="res://assets/animation/player/dash-attack/IMG_4103.webp" id="17_vau08"]
 [ext_resource type="Texture2D" uid="uid://cbivvso6233rl" path="res://assets/animation/player/jump/IMG_3859.webp" id="18_holxr"]
 [ext_resource type="Texture2D" uid="uid://bwfbf84u8118u" path="res://assets/animation/player/run/IMG_3864.webp" id="19_mx1m4"]
 [ext_resource type="Texture2D" uid="uid://0ikgfgg0o3cx" path="res://assets/animation/player/run/IMG_3865.webp" id="20_4gjji"]
@@ -77,6 +87,41 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_0",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ua5cf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_51ujp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tk41t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_fuw3a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8txt3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_2w11d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_770dr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_8f1cb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_vdulj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_vau08")
+}],
+"loop": true,
+"name": &"dash_attack",
 "speed": 20.0
 }, {
 "frames": [{
@@ -266,6 +311,9 @@ size = Vector2(300, 1056.86)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dt7fs"]
 size = Vector2(200, 500)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsb7e"]
+size = Vector2(800, 700)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lxlsd"]
 size = Vector2(600, 400)
 
@@ -279,10 +327,9 @@ script = ExtResource("1_dt7fs")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 self_modulate = Color(0.894118, 0.894118, 0.894118, 1)
 sprite_frames = SubResource("SpriteFrames_2a3c5")
-animation = &"pogo"
+animation = &"dash_attack"
 autoplay = "idle"
-frame = 2
-frame_progress = 1.0
+frame_progress = 0.278218
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 165.5)
@@ -301,6 +348,15 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="flipper/swipeattack"]
 position = Vector2(-362, 71)
 shape = SubResource("RectangleShape2D_dt7fs")
+debug_color = Color(0, 0.640517, 0.348694, 0.42)
+
+[node name="dashattack" type="Area2D" parent="flipper"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="flipper/dashattack"]
+position = Vector2(-463, 110)
+shape = SubResource("RectangleShape2D_qsb7e")
 debug_color = Color(0, 0.640517, 0.348694, 0.42)
 
 [node name="uppercut" type="Area2D" parent="flipper"]
