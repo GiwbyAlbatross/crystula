@@ -7,6 +7,8 @@
 size = Vector2(120, 120)
 
 [node name="test" type="Node2D"]
+position = Vector2(83, 129)
+scale = Vector2(0.75, 0.75)
 
 [node name="player" parent="." instance=ExtResource("1_bl13t")]
 position = Vector2(105, 267)
@@ -31,6 +33,33 @@ position = Vector2(303, 542)
 texture = ExtResource("2_iyx0m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_003"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_012" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(299, 379)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_012"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_012"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_013" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(534, 178)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_013"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_013"]
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="godotface_014" type="StaticBody2D" parent="godotfaces"]
+position = Vector2(912.667, 25.3333)
+
+[node name="Icon" type="Sprite2D" parent="godotfaces/godotface_014"]
+texture = ExtResource("2_iyx0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="godotfaces/godotface_014"]
 shape = SubResource("RectangleShape2D_74lek")
 
 [node name="godotface_004" type="StaticBody2D" parent="godotfaces"]

@@ -17,8 +17,10 @@ var flags: Dictionary[StringName, float] = {
 	#
 } # to avoid having a million goddamn booleans
 var cooldowns: Dictionary[StringName, float] = { # see _tick_cooldowns
-	&'no_input':0.0 # bloody *&^%ing no_input time that pmo so much but is kinda important (DON'T OVERDO IT)
+	&'no_input':0.0, # bloody *&^%ing no_input time that pmo so much but is kinda important (DON'T OVERDO IT)
+	&'jump':0.0
 } # to avoid having a million goddamn floats for evey cooldown
+var peakheight := 10.0**100.0
 
 # important movement stuff
 var direction := 0.0
@@ -46,7 +48,10 @@ func _move(delta: float) -> void:
 	
 	# Add the gravity.
 	if not is_on_floor():
+		peakheight = min(peakheight, global_position.y)
 		velocity.y += GRAVITY * delta
+		if velocity.y < 100.0:
+			setanim(&'fall')
 
 	if cooldowns[&'no_input'] > 0.0:
 		# we are in no-input time
@@ -65,9 +70,18 @@ func _move(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	# Handle jump after movement so the animations don't overwrite each other
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		anim.play(&"jump_raw")
+	
+	if Input.is_action_pressed("ui_accept") and cooldowns:
+		pass
+	
+	if is_on_floor():
+		if Input.is_action_just_pressed("ui_accept"):
+			velocity.y = JUMP_VELOCITY
+			anim.play(&"jump_raw")
+		elif anim.animation == &'jump_raw':
+			anim.play(&"idle")
+		elif peakheight < global_position.y-150.51:
+			setanim(&'fall-land')
 
 func _tick_cooldowns(delta: float) -> void:
 	# very simple timer logic that doesn't use the timer node, to set a cooldown, set cooldowns[&'your_cooldown_name'] to however long that cooldown is and when it's over it will be <= 0.0
@@ -77,7 +91,11 @@ func _tick_cooldowns(delta: float) -> void:
 func _physics_process(delta: float) -> void: # runs exactly 60 times a second, regardless of fps
 	_move(delta)
 	
+	
 	flipper.scale.x = -facing
+	
+	if is_on_floor():
+		peakheight = global_position.y
 	
 	move_and_slide()
 
