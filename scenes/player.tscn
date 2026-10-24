@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://djp4nljg0rqy4"]
+[gd_scene load_steps=45 format=3 uid="uid://djp4nljg0rqy4"]
 
 [ext_resource type="Script" uid="uid://cuelabwet51xk" path="res://scripts/player.gd" id="1_dt7fs"]
 [ext_resource type="Texture2D" uid="uid://cpmh57a8l5tl1" path="res://assets/animation/player/attack_0/IMG_3875.webp" id="2_wqfne"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bh74iuf4ki24u" path="res://assets/animation/player/attack_0/IMG_3878.webp" id="5_487ah"]
 [ext_resource type="Texture2D" uid="uid://cbdrei8dub3ri" path="res://assets/animation/player/attack_0/IMG_3879.webp" id="6_md1ol"]
 [ext_resource type="Texture2D" uid="uid://cyrxnm5s74d4u" path="res://assets/animation/player/attack_0/IMG_3880.webp" id="7_bj30b"]
+[ext_resource type="Texture2D" uid="uid://bd2st0ng48aif" path="res://assets/animation/player/hitbox-location.png" id="8_2dvfe"]
 [ext_resource type="Texture2D" uid="uid://dum6x1mp7fpsh" path="res://assets/animation/player/fall/IMG_3890.png" id="8_j2b1d"]
 [ext_resource type="Texture2D" uid="uid://b3t2scxd5wo6r" path="res://assets/animation/player/idle/IMG_3852.webp" id="8_jc3p3"]
 [ext_resource type="Texture2D" uid="uid://cl0uyjon6mlik" path="res://assets/animation/player/fall/IMG_3895.png" id="9_cs1tg"]
@@ -39,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://bvvuyslk57fjg" path="res://assets/animation/player/walk/IMG_3884.webp" id="27_apa73"]
 [ext_resource type="Texture2D" uid="uid://b5f1napspx21r" path="res://assets/animation/player/walk/IMG_3885.webp" id="28_74r1k"]
 [ext_resource type="Texture2D" uid="uid://cx07k6jq1vxue" path="res://assets/animation/player/walk/IMG_3886.webp" id="29_8svfe"]
+[ext_resource type="Script" uid="uid://c5t6otvi2r572" path="res://scripts/better_camera_smoothing.gd" id="40_cs1tg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2a3c5"]
 animations = [{
@@ -64,6 +66,14 @@ animations = [{
 "loop": false,
 "name": &"attack_0",
 "speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_2dvfe")
+}],
+"loop": false,
+"name": &"debug",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -205,14 +215,16 @@ script = ExtResource("1_dt7fs")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 self_modulate = Color(0.894118, 0.894118, 0.894118, 1)
 sprite_frames = SubResource("SpriteFrames_2a3c5")
-animation = &"fall_land"
+animation = &"fall"
 autoplay = "idle"
-frame = 6
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 165.5)
 shape = SubResource("RectangleShape2D_42b1b")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.75, 0.75)
+script = ExtResource("40_cs1tg")
 
 [node name="flipper" type="Node2D" parent="."]
 

@@ -7,8 +7,6 @@
 size = Vector2(120, 120)
 
 [node name="test" type="Node2D"]
-position = Vector2(83, 129)
-scale = Vector2(0.75, 0.75)
 
 [node name="player" parent="." instance=ExtResource("1_bl13t")]
 position = Vector2(105, 267)

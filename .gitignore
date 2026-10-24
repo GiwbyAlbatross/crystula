@@ -2,6 +2,10 @@
 .godot/
 /android/
 
+# godot can't read them so why track them, they're not part of the codebase
+*.gif
+*.GIF
+
 # macOS bs
 ._*
 *.DS_Store

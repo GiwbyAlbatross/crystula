@@ -2,9 +2,10 @@ extends CharacterBody2D
 
 # settings
 @export var SPEED := 500.0
-@export var JUMP_VELOCITY := -2000.0
+@export var JUMP_VELOCITY := -1000.0
+@export var JUMP_BOOST := 4500.0
 @export var JUMP_LENGTH := 1.0 # seconds
-@export var GRAVITY := 9800.0
+@export var GRAVITY := 6000.0
 @export var maxhp: float = 5.0
 @export var preserved_animations := PackedStringArray([])
 
@@ -33,8 +34,12 @@ func _ready() -> void:
 func _pick_next_anim():
 	var last: StringName = anim.animation
 	if !direction:
-		setanim(&'idle')
+		if is_on_floor():
+			setanim(&'idle')
+		else:
+			setanim(&'fall')
 	else:
+		# TODO: check for running
 		setanim(&'walk')
 	print("setting next animation, last: '", last, "', new: '", anim.animation, "'")
 
@@ -65,17 +70,20 @@ func _move(delta: float) -> void:
 		setanim(&'walk')
 		velocity.x = direction * SPEED
 	else:
-		if Input.is_action_just_released("move"):
+		if Input.is_action_just_released("move") and is_on_floor():
 			setanim(&'idle')
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	# Handle jump after movement so the animations don't overwrite each other
 	
-	if Input.is_action_pressed("ui_accept") and cooldowns:
-		pass
+	if Input.is_action_pressed("ui_accept") and cooldowns[&'jump'] > 0.0 and !is_on_floor() and velocity.y <= 0.0:
+		velocity.y -= JUMP_BOOST * delta
+	if Input.is_action_just_released("ui_accept") and cooldowns[&'jump'] >= 0.0:
+		velocity.y *= 0.1
 	
 	if is_on_floor():
 		if Input.is_action_just_pressed("ui_accept"):
+			cooldowns[&'jump'] = JUMP_LENGTH
 			velocity.y = JUMP_VELOCITY
 			anim.play(&"jump_raw")
 		elif anim.animation == &'jump_raw':
