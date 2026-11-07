@@ -1,3 +1,4 @@
+class_name Yathero
 extends CharacterBody2D
 
 # settings
@@ -33,6 +34,7 @@ var facing := -1 # negative is left, positive is right, should never be zero
 func _ready() -> void:
 	anim.animation_looped.connect(_pick_next_anim)
 	anim.animation_finished.connect(_pick_next_anim)
+	PlayerStats.object = self
 
 func _pick_next_anim():
 	var last: StringName = anim.animation
@@ -122,6 +124,9 @@ func _physics_process(delta: float) -> void: # runs exactly 60 times a second, r
 	
 	if is_on_floor():
 		peakheight = global_position.y
+	
+	PlayerStats.hp = hp
+	PlayerStats.position = global_position
 	
 	_tick_cooldowns(delta)
 	move_and_slide()

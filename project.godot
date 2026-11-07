@@ -14,6 +14,10 @@ config/name="Hollow Knight: Crystula"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PlayerStats="*res://scripts/player_stats.gd"
+
 [display]
 
 window/size/viewport_width=1280

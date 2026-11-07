@@ -16,4 +16,4 @@ run-*
 *.exe
 
 # stuff that would clog git
-hidden/
+untracked/

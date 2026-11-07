@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0y1s4cxd046f"]
+
+[ext_resource type="Script" uid="uid://cnmjtw80hojlu" path="res://scripts/enemies/baren.gd" id="1_1gt5v"]
+[ext_resource type="Texture2D" uid="uid://gd3p2rcin58v" path="res://assets/tmp/baren-upright.atlastex" id="2_dah6u"]
+[ext_resource type="Texture2D" uid="uid://d0fgiyyccm7p5" path="res://assets/tmp/baren-flipped.atlastex" id="3_6g18c"]
+[ext_resource type="Texture2D" uid="uid://dcqmgh7xlge8u" path="res://assets/tmp/baren-flipping.atlastex" id="4_174uo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_37e3e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dah6u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6g18c")
+}],
+"loop": true,
+"name": &"flipped",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_174uo")
+}],
+"loop": true,
+"name": &"flipping",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_007oi"]
+size = Vector2(400, 100)
+
+[node name="baren" type="CharacterBody2D"]
+script = ExtResource("1_1gt5v")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_37e3e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_007oi")
