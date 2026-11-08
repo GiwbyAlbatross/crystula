@@ -7,6 +7,8 @@ extends CharacterBody2D
 @export var random_intel_ticks := 0.0 # # chance that any given tick will run _be_intelligent
 @export var sprite_flash := true
 
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+
 var flags: Dictionary[StringName, bool] = {}
 var cooldowns: Dictionary[StringName, float] = {
 	&'dmg':0.0
@@ -24,6 +26,8 @@ func _ready() -> void:
 	alive_ticks = 0
 	alive_time = 0.0
 	dmg.connect(_dmg)
+	anim.animation_looped.connect(_pick_next_anim)
+	anim.animation_finished.connect(_pick_next_anim)
 	_initialise() # should be overriden by a child class
 
 func _dmg(amt: float) -> void:
@@ -46,7 +50,7 @@ func _dmg(amt: float) -> void:
 	
 
 func _set_cooldown(_name: StringName, length: float) -> bool:
-	"""set a cooldown and return whether or not it had expired"""
+	"""set a cooldown and return whether or not it had expired""" # good ol python docsrtring
 	var expired = _check_cooldown(name)
 	cooldowns[name] = length
 	return expired
@@ -72,13 +76,17 @@ func _get_player_x() -> float:
 	should almost always be -1.0 or 1.0"""
 	return clampf((PlayerStats.position - global_position).x * 100000.1, -1.0, 1.0)
 
-@warning_ignore("unused_parameter")
+@warning_ignore("unused_parameter") # THIS MEANS IT'S AN ABSTRACT METHOD
 func _initialise() -> void:
-	"""OVERRIDE THIS TO SET VALUES ON ENTERING SCENE TREE""" # good ol python docsrtring
+	"""OVERRIDE THIS TO SET VALUES ON ENTERING SCENE TREE"""
 
 @warning_ignore("unused_parameter")
 func _on_dmg() -> void:
 	"""OVERRIDE THIS TO MAKE SOMETHING HAPPEN WHEN TAKING DAMAGE"""
+
+@warning_ignore("unused_parameter")
+func _pick_next_anim() -> void:
+	pass
 
 @warning_ignore("unused_parameter")
 func _vfx(delta: float) -> void:
@@ -100,12 +108,13 @@ func _be_intelligent(delta: float) -> void:
 		velocity = _get_player_direction() * 300.0
 	else:
 		velocity.x = _get_player_x() * 350.0
+	#print("being intelligent")
 
 @warning_ignore("unused_parameter")
 func _physics(delta: float) -> void:
 	"""OVERRIDE THIS TO HAVE PHYSICS RUN EVERY TICK (60tps)"""
 	if !is_on_floor() and motion_mode == MotionMode.MOTION_MODE_GROUNDED:
-		velocity.y += 1000.0 * delta
+		velocity.y += 10000.0 * delta
 
 @warning_ignore("unused_parameter")
 func _react(delta: float) -> void:
@@ -114,6 +123,9 @@ func _react(delta: float) -> void:
 	use this to quickly react to events and avoid doing expensive calculations here"""
 
 @warning_ignore("unused_parameter")
+func _on_pogo() -> void:
+	"""OVERRIDE THIS TO MAKE THINGS HAPPEN WHEN POGO'D"""
+
 func _physics_process(delta: float) -> void:
 	alive_ticks += 1
 	if ((alive_ticks % intelligence_frequency) == 0) or (randf() < random_intel_ticks):
@@ -128,5 +140,9 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	_vfx(delta)
 	if sprite_flash:
-		modulate = lerp(modulate, self_modulate, delta)
+		modulate = lerp(modulate, self_modulate, delta*30.3)
 	alive_time += delta
+	
+	# see res://scripts/player.gd:_tick_cooldowns
+	for key in cooldowns:
+		cooldowns[key] -= delta

@@ -17,7 +17,7 @@ extends CharacterBody2D
 
 var hp: float = 5.0
 var flags: Dictionary[StringName, bool] = {
-	#
+	&'pogoing':false
 } # to avoid having a million goddamn booleans
 var cooldowns: Dictionary[StringName, float] = { # see _tick_cooldowns
 	&'no_input':0.0, # bloody *&^%ing no-input time that pmo in hk so much but is kinda important (DON'T OVERDO IT)
@@ -32,6 +32,7 @@ var peakheight := 10.0**100.0
 # important movement stuff
 var direction := 0.0
 var facing := -1 # negative is left, positive is right, should never be zero
+var knockback := Vector2.ZERO
 
 # important combat stuff
 var attack_hitbox: Area2D
@@ -118,13 +119,16 @@ func _combat(_delta: float) -> void:
 	if Input.is_action_just_pressed('attack') and cooldowns[&'attack'] < -0.1:
 		cooldowns[&'attack'] = 0.35
 		already_attacked.clear()
+		flags[&'pogoing'] = false
 		if Input.is_action_pressed('ui_up'):
 			# uppercut attack
 			anim.play(&'uppercut')
+			#
 			attack_hitbox = flipper.get_node("uppercut")
 		elif Input.is_action_pressed('ui_down') and !is_on_floor():
 			anim.play(&'pogo')
 			attack_hitbox = flipper.get_node("pogo")
+			flags[&'pogoing'] = true
 		else:
 			attack_hitbox = flipper.get_node("swipeattack")
 			anim.play(&"attack_0")
@@ -136,9 +140,12 @@ func _combat(_delta: float) -> void:
 				if !already_attacked.has(body):
 					body.dmg.emit(PlayerStats.atk_dmg)
 					already_attacked.append(body)
+					if flags[&'pogoing']:
+						body._on_pogo()
 				else:
 					body.dmg.emit(0.1) # extra damage for more time in attack hitbox; cool mechanic that makes timing more important kind anot really idk :sigh: </yap>
 
+# WELP actually we don't need this to be a function bc we only need it once and functions are expensive
 func _tick_cooldowns(delta: float) -> void:
 	# very simple timer logic that doesn't use the timer node
 	# to set a timer, set cooldowns[&'your_cooldown_name'] to however long that cooldown is
@@ -158,7 +165,10 @@ func _physics_process(delta: float) -> void: # runs exactly 60 times a second, r
 	PlayerStats.hp = hp
 	PlayerStats.position = global_position
 	
-	_tick_cooldowns(delta)
+	#_tick_cooldowns(delta)
+	for key in cooldowns:
+		cooldowns[key] -= delta
+	
 	move_and_slide()
 
 func _process(delta: float) -> void: # runs every frame, affected by FPS
