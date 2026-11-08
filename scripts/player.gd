@@ -20,10 +20,12 @@ var flags: Dictionary[StringName, bool] = {
 	#
 } # to avoid having a million goddamn booleans
 var cooldowns: Dictionary[StringName, float] = { # see _tick_cooldowns
-	&'no_input':0.0, # bloody *&^%ing no_input time that pmo so much but is kinda important (DON'T OVERDO IT)
+	&'no_input':0.0, # bloody *&^%ing no-input time that pmo in hk so much but is kinda important (DON'T OVERDO IT)
 	&'jump':0.0,
 	&'coyote':0.0,
-	&'dash':0.0, # dashing if greater than 0.0, can dash if greater than -0.65 TODO: implement dashing (waiting on sprites)
+	&'dash':0.0, # dashing if greater than 0.0, can dash if less than -0.45 TODO: implement dashing
+	&'dmg':0.0,
+	&'attack': 0.0, # attacking if greater than 0.0, can attack if less than -0.1
 } # to avoid having a million goddamn floats for evey cooldown
 var peakheight := 10.0**100.0
 
@@ -31,10 +33,21 @@ var peakheight := 10.0**100.0
 var direction := 0.0
 var facing := -1 # negative is left, positive is right, should never be zero
 
+# important combat stuff
+var attack_hitbox: Area2D
+var already_attacked: Array[CollisionObject2D] = []
+
+signal dmg(amt: float) # when hit, call this
+
 func _ready() -> void:
 	anim.animation_looped.connect(_pick_next_anim)
 	anim.animation_finished.connect(_pick_next_anim)
 	PlayerStats.object = self
+
+func _on_dmg(amt: float) -> void:
+	if cooldowns[&'dmg']:
+		hp -= amt / 5.0
+		cooldowns[&'dmg'] = sqrt(amt/2.0)
 
 func _pick_next_anim():
 	var last: StringName = anim.animation
@@ -100,19 +113,36 @@ func _move(delta: float) -> void:
 		elif peakheight < global_position.y-150.51:
 			setanim(&'fall-land')
 
-func _combat(delta: float) -> void:
-	# TODO: actual combat logic
-	if Input.is_action_just_pressed('attack'):
+func _combat(_delta: float) -> void:
+	# WIP: actual combat logic
+	if Input.is_action_just_pressed('attack') and cooldowns[&'attack'] < -0.1:
+		cooldowns[&'attack'] = 0.35
+		already_attacked.clear()
 		if Input.is_action_pressed('ui_up'):
 			# uppercut attack
 			anim.play(&'uppercut')
+			attack_hitbox = flipper.get_node("uppercut")
 		elif Input.is_action_pressed('ui_down') and !is_on_floor():
 			anim.play(&'pogo')
+			attack_hitbox = flipper.get_node("pogo")
 		else:
+			attack_hitbox = flipper.get_node("swipeattack")
 			anim.play(&"attack_0")
+		attack_hitbox.get_node("Sprite2D").play() # will crash when doing dash attack FIXME later
+	if cooldowns[&'attack'] > 0.0:
+		for body in attack_hitbox.get_overlapping_bodies():
+			if 'dmg' in body and body != self:
+				# can be hit
+				if !already_attacked.has(body):
+					body.dmg.emit(PlayerStats.atk_dmg)
+					already_attacked.append(body)
+				else:
+					body.dmg.emit(0.1) # extra damage for more time in attack hitbox; cool mechanic that makes timing more important kind anot really idk :sigh: </yap>
 
 func _tick_cooldowns(delta: float) -> void:
-	# very simple timer logic that doesn't use the timer node, to set a timer, set cooldowns[&'your_cooldown_name'] to however long that cooldown is and when it's over it will be <= 0.0
+	# very simple timer logic that doesn't use the timer node
+	# to set a timer, set cooldowns[&'your_cooldown_name'] to however long that cooldown is
+	# and when it's over it will be <= 0.0
 	for key in cooldowns:
 		cooldowns[key] -= delta
 

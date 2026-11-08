@@ -4,3 +4,4 @@ var maxhp := 5.0
 var hp := 5.0
 var position: Vector2
 var object: Yathero
+var atk_dmg := 5.0

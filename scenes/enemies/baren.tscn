@@ -36,7 +36,13 @@ animations = [{
 size = Vector2(400, 100)
 
 [node name="baren" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+collision_layer = 2
+collision_mask = 3
+platform_floor_layers = 4294967041
 script = ExtResource("1_1gt5v")
+intelligence_frequency = 20
+random_intel_ticks = 0.05
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_37e3e")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://djp4nljg0rqy4"]
+[gd_scene load_steps=71 format=3 uid="uid://djp4nljg0rqy4"]
 
 [ext_resource type="Script" uid="uid://cuelabwet51xk" path="res://scripts/player.gd" id="1_dt7fs"]
 [ext_resource type="Texture2D" uid="uid://cpmh57a8l5tl1" path="res://assets/animation/player/attack_0/IMG_3875.webp" id="2_wqfne"]
@@ -63,6 +63,9 @@
 [ext_resource type="Texture2D" uid="uid://f536i3vj1msv" path="res://assets/animation/player/uppercut/IMG_4028.webp" id="44_nubpm"]
 [ext_resource type="Texture2D" uid="uid://dge66k8g2c5r1" path="res://assets/animation/player/uppercut/IMG_4029.webp" id="45_ua5cf"]
 [ext_resource type="Texture2D" uid="uid://ciw432rgfh01r" path="res://assets/animation/player/uppercut/IMG_4106.webp" id="46_51ujp"]
+[ext_resource type="Material" uid="uid://qna8abh76hv1" path="res://unshaded.material" id="64_tk41t"]
+[ext_resource type="Texture2D" uid="uid://c42wt4khk5q38" path="res://assets/animation/player/attack-lines.png" id="65_fuw3a"]
+[ext_resource type="Script" uid="uid://cu4nv7rmfi0lj" path="res://scripts/fx/animated_sprite2d.gd" id="66_fuw3a"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2a3c5"]
 animations = [{
@@ -308,14 +311,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_42b1b"]
 size = Vector2(300, 1056.86)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dt7fs"]
-size = Vector2(200, 500)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qsb7e"]
 size = Vector2(800, 700)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lxlsd"]
-size = Vector2(600, 400)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ha2mi"]
 size = Vector2(600, 650)
@@ -345,10 +342,19 @@ script = ExtResource("40_cs1tg")
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="flipper/swipeattack"]
-position = Vector2(-362, 71)
-shape = SubResource("RectangleShape2D_dt7fs")
-debug_color = Color(0, 0.640517, 0.348694, 0.42)
+[node name="Sprite2D" type="Sprite2D" parent="flipper/swipeattack"]
+material = ExtResource("64_tk41t")
+position = Vector2(-719, 85)
+scale = Vector2(4, 4)
+texture = ExtResource("65_fuw3a")
+flip_h = true
+hframes = 4
+vframes = 2
+frame = 3
+script = ExtResource("66_fuw3a")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="flipper/swipeattack"]
+polygon = PackedVector2Array(-263, -34, -261, 148, -836, 494, -838, -324)
 
 [node name="dashattack" type="Area2D" parent="flipper"]
 collision_layer = 2
@@ -363,12 +369,24 @@ debug_color = Color(0, 0.640517, 0.348694, 0.42)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="flipper/uppercut"]
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="flipper/uppercut"]
 position = Vector2(-80, -321)
-shape = SubResource("RectangleShape2D_lxlsd")
-debug_color = Color(0, 0.640517, 0.348694, 0.42)
+polygon = PackedVector2Array(-183, 28, 190, 28, 416, -394, -367, -399)
+
+[node name="Sprite2D" type="Sprite2D" parent="flipper/uppercut"]
+material = ExtResource("64_tk41t")
+position = Vector2(-87, -637)
+rotation = 1.5708
+scale = Vector2(4, 4)
+texture = ExtResource("65_fuw3a")
+flip_h = true
+hframes = 4
+vframes = 2
+frame = 2
+script = ExtResource("66_fuw3a")
 
 [node name="pogo" type="Area2D" parent="flipper"]
+editor_description = "pogo needs to be massive to be playable"
 collision_layer = 2
 collision_mask = 2
 
@@ -376,3 +394,18 @@ collision_mask = 2
 position = Vector2(-41, 513)
 shape = SubResource("RectangleShape2D_ha2mi")
 debug_color = Color(0, 0.640517, 0.348694, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="flipper/pogo"]
+material = ExtResource("64_tk41t")
+position = Vector2(-7, 698)
+rotation = 4.71239
+scale = Vector2(4, 4)
+texture = ExtResource("65_fuw3a")
+flip_h = true
+hframes = 4
+vframes = 2
+frame = 3
+script = ExtResource("66_fuw3a")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="flipper/pogo"]
+polygon = PackedVector2Array(-230, 577, -572, 888, 482, 893, 244, 582)
